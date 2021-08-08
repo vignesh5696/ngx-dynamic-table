@@ -2,7 +2,7 @@
   "name": "ngx-dynamic-tables",
   "email": "vignesh269031@gmail.com",
   "description": "Create and save new table with rows and columns. Over all search and individual column search options available.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "peerDependencies": {
     "@angular/common": "^12.0.5",
     "@angular/core": "^12.0.5"
