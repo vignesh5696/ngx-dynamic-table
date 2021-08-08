@@ -1,14 +1,14 @@
 {
-  "name": "ngx-dynamic-table",
+  "name": "ngx-dynamic-tables",
   "email": "vignesh269031@gmail.com",
   "description": "Create and save new table with rows and columns. Over all search and individual column search options available.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "peerDependencies": {
     "@angular/common": "^12.0.5",
     "@angular/core": "^12.0.5"
   },
   "license": "MIT",
-  "homepage": "https://github.com/vignesh5696/ngx-dynamic-table#description",
+  "homepage": "https://github.com/vignesh5696/ngx-dynamic-table#ngx-dynamic-table",
   "repository": {
     "type": "git",
     "url": "https://github.com/vignesh5696/ngx-dynamic-table"

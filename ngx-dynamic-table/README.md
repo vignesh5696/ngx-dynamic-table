@@ -1,27 +1,74 @@
-# NgxDynamicTable
+Dynamic table generator library for Angular.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.5.
+Installation
+npm install ngx-dynamic-tables
 
-## Development server
+Usage
+Create and save new table with rows and columns. Over all search and individual column search options available.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Step 1:
+Import NgxDynamicTableModule in your root module e.g: AppModule.
 
-## Code scaffolding
+// app.module.ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+import { AppComponent } from './app.component';
 
-## Build
+import { NgxDynamicTableModule } from 'ngx-dynamic-tables'; // ==> import module from library
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    NgxDynamicTableModule // ==> add module to `imports` array.
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+Once the module is imported, you can start using the libaray seamlessly.
 
-## Running unit tests
+Step 2
+Setup table config in your component file:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+//app.component.ts
+import { Component } from '@angular/core';
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'app';
 
-## Running end-to-end tests
+  src=[
+    {
+      Name:"Vignesh",
+      age:25,
+    },
+    {
+      Name:"Prabha",
+      age:25,
+      height:""
+    },   
+    {
+     Name:"Prabha",
+     age:25,
+     weight:""
+    }
+  ];
+}
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Step 3:
+Finally, add the ngx-dynamic-table to your template:
 
-## Further help
+<!-- app.component.html-->
+<ngx-dynamic-table [src]="src" [mode]="'read'" (output)="onSave($event)"></ngx-dynamic-table>
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+src - If empty then by default one row and column is created. (No restriction for keys in input object)
+mode - values can be 'read' or 'write'(default).
+output - If mode is edit, then on saving data can be fetched in parent element using (output) event.
+

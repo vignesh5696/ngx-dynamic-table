@@ -1,24 +1,74 @@
-# NgxDynamicTable
+Dynamic table generator library for Angular.
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.5.
+Installation
+npm install ngx-dynamic-tables
 
-## Code scaffolding
+Usage
+Create and save new table with rows and columns. Over all search and individual column search options available.
 
-Run `ng generate component component-name --project ngx-dynamic-table` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-dynamic-table`.
-> Note: Don't forget to add `--project ngx-dynamic-table` or else it will be added to the default project in your `angular.json` file. 
+Step 1:
+Import NgxDynamicTableModule in your root module e.g: AppModule.
 
-## Build
+// app.module.ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-Run `ng build ngx-dynamic-table` to build the project. The build artifacts will be stored in the `dist/` directory.
+import { AppComponent } from './app.component';
 
-## Publishing
+import { NgxDynamicTableModule } from 'ngx-dynamic-tables'; // ==> import module from library
 
-After building your library with `ng build ngx-dynamic-table`, go to the dist folder `cd dist/ngx-dynamic-table` and run `npm publish`.
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    NgxDynamicTableModule // ==> add module to `imports` array.
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+Once the module is imported, you can start using the libaray seamlessly.
 
-## Running unit tests
+Step 2
+Setup table config in your component file:
 
-Run `ng test ngx-dynamic-table` to execute the unit tests via [Karma](https://karma-runner.github.io).
+//app.component.ts
+import { Component } from '@angular/core';
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'app';
 
-## Further help
+  src=[
+    {
+      Name:"Vignesh",
+      age:25,
+    },
+    {
+      Name:"Prabha",
+      age:25,
+      height:""
+    },   
+    {
+     Name:"Prabha",
+     age:25,
+     weight:""
+    }
+  ];
+}
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Step 3:
+Finally, add the ngx-dynamic-table to your template:
+
+<!-- app.component.html-->
+<ngx-dynamic-table [src]="src" [mode]="'read'" (output)="onSave($event)"></ngx-dynamic-table>
+
+src - If empty then by default one row and column is created. (No restriction for keys in input object)
+mode - values can be 'read' or 'write'(default).
+output - If mode is edit, then on saving data can be fetched in parent element using (output) event.
+

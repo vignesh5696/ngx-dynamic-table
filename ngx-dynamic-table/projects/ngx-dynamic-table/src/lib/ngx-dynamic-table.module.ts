@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgxDynamicTableComponent } from './ngx-dynamic-table.component';
 
@@ -8,6 +9,7 @@ import { NgxDynamicTableComponent } from './ngx-dynamic-table.component';
     NgxDynamicTableComponent
   ],
   imports: [
+    CommonModule
   ],
   exports: [
     NgxDynamicTableComponent
