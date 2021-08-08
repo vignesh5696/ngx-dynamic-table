@@ -1,0 +1,100 @@
+<div>
+    <div class="toolbar">
+        <div style="height: 100%;">
+            <span class="dropdown" [hidden]="mode=='read'">
+                <button id="searchType"><i>i</i></button>
+                <div class="dropdown-content" id="infoDropdown">
+                    <label>Search option</label><br>
+                    <input type="radio" value="Includes" name="mainSearch" id="mainSearch1" checked="checked"
+                    (click)="searchOptionType='option1';(!editMode)?onSearch():''">
+                    <label for="mainSearch1">Includes</label><br>
+                    <input type="radio" value="Starts with" name="mainSearch" id="mainSearch2"
+                    (click)="searchOptionType='option2';(!editMode)?onSearch():''">
+                    <label for="mainSearch2">Starts with</label><br><br>
+                    <label>Filter Option</label><br>
+                    <input type="radio" value="Includes" name="filterSearch" id="filterSearch1" checked="checked"
+                    (click)="filterOptionType='option1';onSearch()">
+                    <label for="filterSearch1">Includes</label><br>
+                    <input type="radio" value="Starts with" name="filterSearch" id="filterSearch2" 
+                    (click)="filterOptionType='option2';onSearch()">
+                    <label for="filterSearch2">Starts with</label><br><br>
+                    <label (click)="emptyAllColumnSearch();onSearch()">CLEAR ALL FILTERS</label>
+                  </div>
+            </span>
+            <input type="text" name="Search" id="searchInput" placeholder="Search here"
+             (input)="onSearch()" #searchInput>
+            <button (click)="onSave()" [hidden]="mode=='read'">SAVE</button>
+            <button (click)="onEdit()" [hidden]="mode=='read'">EDIT</button>
+            <span class="dropdown" [hidden]="mode=='read'">
+                <button id="add" [hidden]="!editMode">ADD</button>
+                <div class="dropdown-content" id="addDropdown">
+                    <p (click)="onRowAdd()">Row</p>
+                    <p (click)="onColumnAdd()">Column</p>
+                  </div>
+            </span>
+            <span class="dropdown" [hidden]="mode=='read'">
+                <button id="delete" [hidden]="!editMode">DELETE</button>
+                <div class="dropdown-content" id="deleteDropdown">
+                    <p (click)="onRowDelete()">Row</p>
+                    <p (click)="onColumnDelete()">Column</p>
+                  </div>
+            </span>
+        </div>
+    </div>
+    <span *ngIf="invalidColumnName" class="error">{{messageText}}
+        <span class="closeButton" (click)="onClose()">X</span>
+    </span>
+    <span *ngIf="info" class="info"><b>INFO :</b>{{messageText}}
+        <span class="closeButton" (click)="onClose()">X</span>
+    </span>
+    <table [hidden]="!(mode=='write' && editMode)">
+        <thead >
+            <tr id="writeHeader">
+                <th *ngFor="let header of writeHeaders">
+                    <input type="text" [value]="header">
+                </th>
+            </tr>
+        </thead>
+        <tbody id="writeValue">
+            <tr *ngFor="let row of writeOutput;">
+                <ng-container *ngFor="let item of row | keyvalue: originalOrder">
+                    <td>
+                    <input type="text" [value]="item.value">  
+                    </td>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+    <table [hidden]="!(mode=='read' || !editMode)">
+        <thead>
+            <tr id="columnSearchHeader">
+                <th *ngFor="let header of writeHeaders" >
+                    <input type="text" name="Search" [id]="header"
+                    [placeholder]="'Filter in '+ header.toUpperCase()"
+                    (input)="onSearch()" #columnSearchInput>
+                </th>
+            </tr>
+            <tr>
+                <th class="hoverArea" *ngFor="let header of writeHeaders">{{header}}
+                    <br>
+                    <span class="toolTip">{{header}}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="readValue">
+            <tr *ngFor="let row of writeOutput;">
+                <ng-container *ngFor="let item of row | keyvalue: originalOrder">
+                    <td class="hoverArea">{{item.value}}
+                        <span class="toolTip">{{item.value}}</span>
+                    </td>
+                </ng-container>
+            </tr>
+        </tbody>
+        <caption align="bottom" id="tableCaption" *ngIf="writeOutput.length > 0">
+            ROWS : {{writeOutput.length}} | COLUMNS : {{writeHeaders.length}}
+        </caption>
+    </table>
+    <span *ngIf="showNoDataMessage && !editMode" class="info">
+        NO DATA
+    </span>
+</div>
